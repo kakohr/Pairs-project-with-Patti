@@ -18,6 +18,61 @@ public class JdbcCampgroundDao implements CampgroundDao {
 
     @Override
     public List<Campground> getCampgroundsByParkId(int parkId) {
+        Campground campground = null;
+        String sql = "SELECT campground_id, park_id, name, open_from_mm, open_to_mm, daily_fee" +
+                "FROM campground" +
+                "ORDER BY campground_id";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, campgroundId);
+        if (results.next()) {
+            campground = mapRowToCampground(results);
+        }
+        return campground;
+    }
+    public List<Campground> getCampgroundsByParkId (Long parkId) {
+        List<Campground> campgrounds = new ArrayList<>();
+        String sql = "SELECT campground_id, park_id, name, open_from_mm, open_to_mm, daily_fee " +
+                "FROM campground" +
+                "ORDER BY park_id";
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, campgroundId);
+            while (results.next()) {
+                Campground campground = mapRowToCampground(results);
+                campground.add(campground);
+            }
+            return campgrounds;
+//    public List<Timesheet> getTimesheetsByEmployeeId(Long employeeId) {
+//        List<Timesheet> timesheets = new ArrayList<>();
+//        String sql = "SELECT timesheet_id, employee_id, project_id, date_worked," +
+//                " hours_worked, billable, description " +
+//                "FROM timesheet " +
+//                "WHERE employee_id = ? " +
+//                "ORDER BY timesheet_id;";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
+//        while (results.next()) {
+//            Timesheet timesheet = mapRowToTimesheet(results);
+//            timesheets.add(timesheet);
+//        }
+//        return timesheets;
+//    }
+
+
+
+ //       Timesheet timesheet = null;
+//    String sql = "SELECT timesheet_id, employee_id, project_id, date_worked, hours_worked, billable, description " +
+//            "FROM timesheet " +
+//            "WHERE timesheet_id = ?";
+//    SqlRowSet results = jdbcTemplate.queryForRowSet(sql, timesheetId);
+//        if (results.next()) {
+//        timesheet = mapRowToTimesheet(results);
+//    }
+//        return timesheet;
+
+
+
+
+
+
+
+
         return new ArrayList<>();
     }
 

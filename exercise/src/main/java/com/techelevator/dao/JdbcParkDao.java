@@ -5,8 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.List;
 
 public class JdbcParkDao implements ParkDao {
 
@@ -16,10 +14,36 @@ public class JdbcParkDao implements ParkDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    @Override
-    public List<Park> getAllParks() {
-        return new ArrayList<>();
+  //  @Override
+    public Park getAllParks(int parkId) {
+        Park park = null;
+        String sql = "SELECT park_id, name, location, establish_date, area, visitors, description" +
+                "FROM parks" +
+                "WHERE park_id =?;" +
+                "ORDER BY park_id ASC";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, getAllParks());
+        while (results.next()) {
+            park =mapRowToPark(results);
+        }
+
+        return park;
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private Park mapRowToPark(SqlRowSet results) {
         Park park = new Park();
@@ -33,4 +57,8 @@ public class JdbcParkDao implements ParkDao {
         return park;
     }
 
+    @Override
+    public Park getAllParks() {
+        return null;
+    }
 }

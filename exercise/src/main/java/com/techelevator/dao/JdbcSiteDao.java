@@ -18,7 +18,26 @@ public class JdbcSiteDao implements SiteDao {
 
     @Override
     public List<Site> getSitesThatAllowRVs(int parkId) {
-        return new ArrayList<>();
+     //   List<Site> sites + new ArrayList<>();
+      //  String sql = "SELECT"
+
+
+//        List<Timesheet> timesheets = new ArrayList<>();
+//        String sql = "SELECT timesheet_id, employee_id, project_id, date_worked," +
+//                " hours_worked, billable, description " +
+//                "FROM timesheet " +
+//                "WHERE employee_id = ? " +
+//                "ORDER BY timesheet_id;";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
+//        while (results.next()) {
+//            Timesheet timesheet = mapRowToTimesheet(results);
+//            timesheets.add(timesheet);
+//        }
+//        return timesheets;
+
+
+
+          return new ArrayList<>();
     }
 
     private Site mapRowToSite(SqlRowSet results) {
