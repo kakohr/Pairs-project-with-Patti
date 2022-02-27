@@ -18,27 +18,34 @@ public class JdbcSiteDao implements SiteDao {
 
     @Override
     public List<Site> getSitesThatAllowRVs(int parkId) {
-     //   List<Site> sites + new ArrayList<>();
-      //  String sql = "SELECT"
 
+        List<Site> cities = new ArrayList<>();
+        String sql = "SELECT site_id, campground_id, site_number, max_occupancy, accessible, max_rv_length, utilities " +
+                "FROM site " +
+                "WHERE max_rv_length >1 = ? " +
+                "ORDER BY max_rv_length;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, max_rv_length);
+        while (results.next()) {
+            getSitesThatAllowRVs(getSitesThatAllowRVs()).size(mapRowToSite(results));
+            sites.add(site);
+        }
 
-//        List<Timesheet> timesheets = new ArrayList<>();
-//        String sql = "SELECT timesheet_id, employee_id, project_id, date_worked," +
-//                " hours_worked, billable, description " +
-//                "FROM timesheet " +
-//                "WHERE employee_id = ? " +
-//                "ORDER BY timesheet_id;";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
-//        while (results.next()) {
-//            Timesheet timesheet = mapRowToTimesheet(results);
-//            timesheets.add(timesheet);
-//        }
-//        return timesheets;
-
-
-
-          return new ArrayList<>();
+        return getSitesThatAllowRVs;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private Site mapRowToSite(SqlRowSet results) {
         Site site = new Site();
