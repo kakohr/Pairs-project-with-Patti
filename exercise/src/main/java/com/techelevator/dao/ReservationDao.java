@@ -10,10 +10,7 @@ public interface ReservationDao {
     int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate);
 
 
-    @Override
-    public int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate) {
-        return -1;
-    }
+
 
 
 

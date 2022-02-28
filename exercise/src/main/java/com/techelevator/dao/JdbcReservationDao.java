@@ -18,31 +18,26 @@ public class JdbcReservationDao implements ReservationDao {
 
     @Override
     public int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate) {
-        return -1;
+        String sql = "INSERT INTO reservation (site_id, name, from_date, to_date, create_date) " +
+                "VALUES (?, ?, ?, ?, NOW()) RETURNING reservation_id;";
+        return jdbcTemplate.queryForObject(sql, Integer.class, siteId, name, fromDate, toDate);
+
     }
-    String sql = "INSERT INTO reservation (site_id, name, from_date, to_date, create_date) " +
-            "VALUES (?, ?, ?, ?, ?) RETURNING reservation_id;";
-    Integer newId = jdbcTemplate.queryForObject(sql, Integer.class,
-            reservation.getSiteID(), reservation.getName(), reservation.getFromDate(), reservation.getToDate, reservation.getCreateDate());
 
-        return getReservation(newId);
-
-
-}
-    @Override
-    public Reservation getAllReservation(int reservationId) {
-      Reservation reservation = null;
-        String sql = "SELECT reservation_id, site_id, name, from_date, to_date, create_date" +
-                "FROM reservation" +
-                "WHERE from_date <= ?" +
-                "ORDER BY from_date";
-
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reservationId());
-        while (results.next()) {
-            reservation = mapRowToReservationId(results);
-        }
-
-        return reservations;
+//    @Override
+//    public Reservation getAllReservation(int reservationId) {
+//      Reservation reservation = null;
+//        String sql = "SELECT reservation_id, site_id, name, from_date, to_date, create_date" +
+//                "FROM reservation" +
+//                "WHERE from_date <= ?" +
+//                "ORDER BY from_date";
+//
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reservationId());
+//        while (results.next()) {
+//            reservation = mapRowToReservationId(results);
+//        }
+//
+//        return reservations;
 
 
 
